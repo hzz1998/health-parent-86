@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.dao.SetmealDao">
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+      insert into t_setmeal
+      		(code,name,sex,age,helpCode,price,remark,attention,img)
+        		values
+      		(#{code},#{name},#{sex},#{age},#{helpCode},#{price},#{remark},#{attention},#{img})
+    </insert>
+
+    <insert id="setSetmealAndCheckGroupRelation">
+         insert into t_setmeal_checkgroup(setmeal_id,checkgroup_id) values (#{setmealId},#{checkgroupId})
+    </insert>
+
+    <select id="findPage" resultType="com.itheima.pojo.Setmeal">
+        select * from t_setmeal
+    </select>
+
+    <select id="getSetmeal" resultType="com.itheima.pojo.Setmeal">
+        select * from t_setmeal
+    </select>
+
+    <select id="findById" resultType="com.itheima.pojo.Setmeal">
+        select * from t_setmeal where id = #{id}
+    </select>
+
+    <select id="findCheckGroupsBySetmealId" resultType="com.itheima.pojo.CheckGroup">
+         select * from t_checkgroup where id in (select checkgroup_id from t_setmeal_checkgroup where setmeal_id = #{id})
+    </select>
+    <select id="findCheckItemsByCheckGroupId" resultType="com.itheima.pojo.CheckItem">
+        select b.* from t_checkgroup_checkitem a left join t_checkitem b on a.checkitem_id = b.id where a.checkgroup_id = #{id}
+    </select>
+
+    <select id="findCheckItemsByCheckGroupIdBatch" resultType="com.itheima.pojo.CheckItem">
+        select b.*,a.checkgroup_id checkGroupId from t_checkgroup_checkitem a left join t_checkitem b on a.checkitem_id = b.id where a.checkgroup_id
+        in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+</mapper>

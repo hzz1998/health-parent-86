@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+</head>
+<body>
+<div id="app">
+
+    <el-tree :data="treeData"
+            show-checkbox
+            node-key="id"
+            default-expand-all
+            :expand-on-click-node="false">
+      <span class="custom-tree-node" slot-scope="{ node, data }">
+        <span>{{ data.label }}</span>
+          <button @click="add(data)">添加子菜单</button>
+          <button>删除菜单</button>
+      </span>
+    </el-tree>
+
+
+
+    <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+
+        <el-input v-model="formData.name"></el-input>
+        <el-input v-model="formData.linkUrl"></el-input>
+        <el-button type="primary" @click="doAdd">确 定</el-button>
+
+    </el-dialog>
+
+
+</div>
+
+
+<script src="../js/vue.js"></script>
+<script src="../js/axios-0.18.0.js"></script>
+<script src="../plugins/elementui/index.js"></script>
+<script>
+    var vm  = new Vue({
+        el:"#app",
+        data:{
+            dialogFormVisible:false,
+            treeData:[],
+            formData:{}
+        },
+        methods:{
+            add(data){
+                //弹出新增框架
+                this.dialogFormVisible = true;
+                this.formData.parentMenuId = data.id;
+            },
+            doAdd(){
+                axios.post("/test/addMenu.do",this.formData).then((res)=>{
+                    //刷新页面
+                    this.findPage();
+                })
+            },
+            findPage(){
+                axios.get("/test/getAllMenu.do").then((res)=>{
+                    this.treeData = res.data.data;
+                })
+            }
+        },
+        created(){
+            this.findPage();
+        }
+
+    })
+
+
+    //{data:[]}
+
+</script>
+</body>
+</html>

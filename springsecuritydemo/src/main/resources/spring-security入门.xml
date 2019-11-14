@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/mvc
+						http://www.springframework.org/schema/mvc/spring-mvc.xsd
+						http://code.alibabatech.com/schema/dubbo
+						http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd
+                          http://www.springframework.org/schema/security
+                          http://www.springframework.org/schema/security/spring-security.xsd">
+
+<!--    配置默认的登录页面
+    auto-config="true" 自动配置了一个默认的登录页面 配置了一些列的过滤器
+
+
+-->
+    <security:http auto-config="true">
+
+<!--        配置页面的拦截规则 需要什么样的权限-->
+        <security:intercept-url pattern="/**" access="hasAuthority('新增检查项')"></security:intercept-url>
+
+    </security:http>
+
+
+<!--    配置认证（登录）管理器-->
+    <security:authentication-manager>
+        <!--    配置认证提供者-->
+        <security:authentication-provider>
+
+            <security:user-service>
+<!--                 {noop}admin 代码明密码-->
+                 <security:user name="admin" password="{noop}admin" authorities="新增检查项,查询检查项"></security:user>
+                 <security:user name="boge" password="{noop}boge" authorities="查询检查项,删除检查项"></security:user>
+            </security:user-service>
+
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+
+
+
+
+</beans>

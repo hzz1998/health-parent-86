@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.dao.TestMapper">
+    <insert id="addMenu">
+        insert into t_menu (name,linkUrl,parentMenuId) values(#{name},#{linkUrl},#{parentMenuId})
+    </insert>
+
+
+
+    <select id="findAll" resultType="com.itheima.pojo.Test">
+        select * from test
+    </select>
+    <select id="find1Menu" resultType="com.itheima.pojo.Menu">
+        select * from t_menu where parentMenuId is null
+    </select>
+    <select id="findMenuByParentId" resultType="com.itheima.pojo.Menu">
+            select * from t_menu where parentMenuId = #{id}
+    </select>
+</mapper>
