@@ -9,6 +9,25 @@ import java.util.List;
 public class Setmeal implements Serializable {
     private Integer id;
     private String name;
+
+    @Override
+    public String toString() {
+        return "Setmeal{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", helpCode='" + helpCode + '\'' +
+                ", sex='" + sex + '\'' +
+                ", age='" + age + '\'' +
+                ", price=" + price +
+                ", remark='" + remark + '\'' +
+                ", attention='" + attention + '\'' +
+                ", img='" + img + '\'' +
+                ", checkGroups=" + checkGroups +
+                ", checkgroupIds=" + checkgroupIds +
+                '}';
+    }
+
     private String code;
     private String helpCode;
     private String sex;//套餐适用性别：0不限 1男 2女
