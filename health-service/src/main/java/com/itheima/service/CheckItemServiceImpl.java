@@ -60,6 +60,7 @@ public class CheckItemServiceImpl implements CheckItemService {
 
     @Override
     public List<CheckItem> findAll() {
+
         return checkItemMapper.findAll();
     }
 }
