@@ -10,7 +10,9 @@
         <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
         <!-- 引入样式 -->
         <link rel="stylesheet" href="../css/style.css">
+        <script src="../plugins/elementui/index.js"></script>
         <script src="../plugins/echarts/echarts.js"></script>
+        <script src="../plugins/elementui/index.js"></script>
     </head>
     <body class="hold-transition">
         <div id="app">
@@ -25,7 +27,19 @@
             <div class="app-container">
                 <div class="box">
                     <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-                    <div id="chart1" style="height:600px;"></div>
+                    <div id="chart1" style="height:600px; ">
+
+                    </div>
+                    <div class="block">
+                        <span class="demonstration">默认</span>
+                        <el-date-picker
+                                v-model="value1"
+                                type="daterange"
+                                range-separator="至"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期">
+                        </el-date-picker>
+                    </div>
                 </div>
             </div>
         </div>
@@ -33,14 +47,24 @@
     <!-- 引入组件库 -->
     <script src="../js/vue.js"></script>
     <script src="../js/axios-0.18.0.js"></script>
-    <script type="text/javascript">
+    <script>
+
+        var vue = new Vue({
+            el:"#app",
+            data:{
+             value1:[100,200]
+            }
+
+
+
+       })
         // 基于准备好的dom，初始化echarts实例
         var myChart1 = echarts.init(document.getElementById('chart1'));
 
         // 使用刚指定的配置项和数据显示图表。
         //myChart.setOption(option);
 
-        axios.get("/report/getSetmealReport.do").then((res)=>{
+        axios.get("/report/getSex.do").then((res)=>{
 
             var option = {
                 title : {
@@ -78,4 +102,5 @@
 
         });
     </script>
+
 </html>

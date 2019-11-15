@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -28,7 +30,7 @@ public class ReportController {
     ReportService reportService;
 
     @RequestMapping("/getMemberReport")
-    public Result getMemberReport(){
+    public Result getMemberReport() {
         //得到过去1年的月份
         DateTime dateTime = DateUtil.offsetMonth(new Date(), -12);
         List<String> months = new ArrayList<>();
@@ -42,25 +44,25 @@ public class ReportController {
         List<Integer> memberCount = reportService.getMemberReport(months);
 
         Map map = new HashMap<>();
-        map.put("months",months);
-        map.put("memberCount",memberCount);
-        return Result.success("",map);
+        map.put("months", months);
+        map.put("memberCount", memberCount);
+        return Result.success("", map);
     }
 
     @RequestMapping("/getSetmealReport")
-    public Result getSetmealReport(){
+    public Result getSetmealReport() {
         List<Map> maps = reportService.getSetmealReport();
-        return Result.success("",maps);
+        return Result.success("", maps);
     }
 
     @RequestMapping("/getBusinessReportData")
-    public Result getBusinessReportData(){
+    public Result getBusinessReportData() {
         ReportDataVo reportDataVo = reportService.getBusinessReportData();
-        return Result.success("",reportDataVo);
+        return Result.success("", reportDataVo);
     }
 
     @RequestMapping("/exportBusinessReport")
-    public void exportBusinessReport(HttpServletResponse response, HttpServletRequest request){
+    public void exportBusinessReport(HttpServletResponse response, HttpServletRequest request) {
         try {
             ReportDataVo reportDataVo = reportService.getBusinessReportData();
 
@@ -101,7 +103,7 @@ public class ReportController {
             //通响应头 （Response Header）告诉浏览器我现在写是一个文件，并且还是一个excel
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");//
             //文件直接在浏览器上显示或者在访问时弹出文件下载对话框
-            response.setHeader("Content-Disposition", "attachment;filename="+ java.net.URLEncoder.encode("运营报表", "UTF-8")+".xlsx");
+            response.setHeader("Content-Disposition", "attachment;filename=" + java.net.URLEncoder.encode("运营报表", "UTF-8") + ".xlsx");
 
             ServletOutputStream out = response.getOutputStream();
             xssfWorkbook.write(out);
@@ -115,5 +117,57 @@ public class ReportController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @RequestMapping("/getSex")
+    public Result getSex() {
+
+        List<Map> map = reportService.getSex();
+        return Result.success("", map);
+    }
+
+    @RequestMapping("/getAge")
+    public Result getAge() throws Exception {
+        List<Map> maps = reportService.getAge();
+
+        return Result.success("", maps);
+    }
+
+    @RequestMapping("/getDate")
+    public Result getDate(String start, String end) throws ParseException {
+        if (start == null || end == null) {
+            return Result.error("不填?想我帮你填啊..");
+        }
+        List<String> monthList = getDayList(start, end);
+        List<Integer> list = reportService.queryCountByMonth(monthList);
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("months",monthList);
+        map.put("memberCount",list);
+        return Result.success("成功", map);
+    }
+
+    private List<String> getDayList(String start, String end) throws ParseException {
+        Date startDay = new SimpleDateFormat("yyyy-MM-dd").parse(start);
+        Date endDay = new SimpleDateFormat("yyyy-MM-dd").parse(end);
+        //比较两个时间大小,如果前面大就颠倒
+        if (startDay.getTime() > endDay.getTime()) {
+            Date m = startDay;
+            startDay = endDay;
+            endDay = m;
+        }
+        List<String> dayList = new ArrayList<>();
+        while (true) {
+            String format = new SimpleDateFormat("yyy-MM").format(startDay);
+            dayList.add(format);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(startDay);
+            calendar.add(Calendar.MONTH, 1);
+            startDay = calendar.getTime();
+            if (startDay.getTime() >= endDay.getTime()) {
+                break;
+            }
+        }
+        return dayList;
     }
 }
