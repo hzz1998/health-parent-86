@@ -14,39 +14,46 @@
 						http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="com.itheima.jobs"></context:component-scan>
-
-<!--    1、任务-->
+    <!--1、任务-->
     <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-<!--        告诉框架我们的任务类是那个-->
+        <!--告诉框架我们的任务类是那个-->
         <property name="targetObject" ref="clearImages"></property>
-<!--        还得告诉它要执行那个方法-->
+        <!--还得告诉它要执行那个方法-->
         <property name="targetMethod" value="run"></property>
     </bean>
-
-<!--    2、触发器-->
+    <!--2、触发器-->
     <bean class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" id="cronTrigger">
-<!--        要触发那个任务-->
+        <!-- 要触发那个任务-->
         <property name="jobDetail" ref="jobDetail"></property>
-<!--        什么时候干-->
+        <!--什么时候干-->
         <property name="cronExpression" value="*/5 * * * * ?"></property>
-<!--        <property name="cronExpression" value="0 0 2 * * ?"></property>-->
+        <!--<property name="cronExpression" value="0 0 2 * * ?"></property>-->
     </bean>
 
-<!--    3、调度器-->
 
+    <bean id="jobDetail2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!--告诉框架我们的任务类是那个-->
+        <property name="targetObject" ref="clearOrderSettingJob"></property>
+        <!--还得告诉它要执行那个方法-->
+        <property name="targetMethod" value="clearOrderSetting"></property>
+    </bean>
+
+    <bean class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" id="cronTrigger2">
+        <!--要触发那个任务-->
+        <property name="jobDetail2" ref="jobDetail2"></property>
+        <!--什么时候干-->
+        <property name="cronExpression" value="0 0 2 L * ?"></property>
+    </bean>
+
+    <!--3、调度器-->
     <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <!-- 注入多个触发器 -->
         <property name="triggers">
             <list>
                 <ref bean="cronTrigger"/>
-<!--                <ref bean="cronTrigger"/>-->
-<!--                <ref bean="cronTrigger"/>-->
-<!--                <ref bean="cronTrigger"/>-->
+                <ref bean="cronTrigger2"/>
             </list>
         </property>
     </bean>
-
-
-
 
 </beans>
