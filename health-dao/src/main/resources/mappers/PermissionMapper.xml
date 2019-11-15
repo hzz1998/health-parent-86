@@ -21,16 +21,23 @@
       select * from t_permission where id in (select permission_id from t_role_permission where role_id = #{roleId})
     </select>
     <select id="findAll" resultType="com.itheima.pojo.Permission">
-        select * from t_permisssion
+        select * from t_permission
     </select>
 
     <select id="findPage" resultType="com.itheima.pojo.Permission">
-        select * from t_permisssion
+        select * from t_permission
 
         <if test="queryString != null and queryString.length > 0">
             where code = #{queryString} or name = #{queryString}
         </if>
 
+    </select>
+    <select id="getFirstMenus" resultType="com.itheima.pojo.Menu">
+          select * from t_menu where parentMenuId is null
+    </select>
+
+    <select id="getSecondMenus" resultType="com.itheima.pojo.Menu">
+        select * from t_menu where parentMenuId  = #{id}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

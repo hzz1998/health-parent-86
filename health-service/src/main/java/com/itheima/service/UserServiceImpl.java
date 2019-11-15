@@ -5,12 +5,16 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.itheima.dao.PermissionMapper;
 import com.itheima.dao.RoleMapper;
 import com.itheima.dao.UserMapper;
+import com.itheima.pojo.Menu;
 import com.itheima.pojo.Permission;
 import com.itheima.pojo.Role;
 import com.itheima.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Service(interfaceClass = UserService.class)
@@ -43,5 +47,20 @@ public class UserServiceImpl implements UserService {
             user.setRoles(roles);
         }
         return user;
+    }
+
+    @Override
+    public Map getMenusAndPermissions() {
+
+        List<Permission> permissions = permissionMapper.findAll();
+        //先查询一级菜单
+        List<Menu> menus =  permissionMapper.getFirstMenus();
+        for (Menu menu : menus) {
+            menu.setChildren(permissionMapper.getSecondMenus(menu.getId()));
+        }
+        Map map = new HashMap();
+        map.put("permissions",permissions);
+        map.put("menus",menus);
+        return map;
     }
 }

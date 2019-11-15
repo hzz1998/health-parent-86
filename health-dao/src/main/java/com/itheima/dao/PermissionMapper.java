@@ -1,6 +1,7 @@
 package com.itheima.dao;
 
 import com.itheima.pojo.CheckItem;
+import com.itheima.pojo.Menu;
 import com.itheima.pojo.Permission;
 import org.apache.ibatis.annotations.Param;
 
@@ -25,4 +26,8 @@ public interface PermissionMapper {
     Set<Permission> selectByRoleId(@Param("roleId") Integer roleId);
 
     List<Permission> findPage(String queryString);
+
+    List<Menu> getFirstMenus();
+
+    List<Menu> getSecondMenus(Integer id);
 }

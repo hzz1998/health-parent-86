@@ -297,7 +297,7 @@
 
                     //动态给formData加一个属性，所以我们还需要在pojo里面加一个属性checkitemIds
                     this.formData.checkitemIds = this.checkitemIds
-                    axios.post("/checkgroup/add.do",this.formData).then((res)=>{
+                    axios.post("/role/add.do",this.formData).then((res)=>{
                         if(res.data.flag){
                             //刷新页面
                             this.findPage()
