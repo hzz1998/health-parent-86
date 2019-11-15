@@ -92,4 +92,8 @@
     <select id="findMemberTotalCount" resultType="int">
         select count(id) from t_member
     </select>
+    <select id="findMemberByParentId" resultType="com.itheima.pojo.Member">
+        select * from t_member where familyid = #{id}
+    </select>
+
 </mapper>

@@ -86,6 +86,18 @@
                             <label>身份证号</label>
                             <input v-model="orderInfo.idCard" type="text" class="input-clear" placeholder="请输入身份证号">
                         </div>
+
+                        <div class="input-row">
+                            <label>家庭联系人</label>
+                            <el-select v-model="orderInfo.memberId" placeholder="请选择">
+                                <el-option
+                                        v-for="item in family"
+                                        :label="item.name"
+                                        :value="item.id">
+                                </el-option>
+                            </el-select>
+                        </div>
+
                         <div class="date">
                             <label>体检日期</label>
                             <i class="icon-date" class="picktime"></i>
@@ -106,12 +118,13 @@
                     orderInfo:{
                         setmealId:id,
                         sex:'1',
-                        telephone:"15601795090",
-                        idCard:"422801199207211413",
-                        validateCode:"2634",
-                        name:"谭爸爸"
-
-                    }//预约信息
+                        telephone:"18845133635",
+                        idCard:"123456789012345678",
+                        validateCode:"",
+                        name:"王美丽",
+                        token:'',
+                    },//预约信息
+                    family:[]
                 },
                 methods:{
                     //发送验证码
@@ -158,6 +171,10 @@
                     axios.get("/setmeal/getToken.do").then((response) => {
                         this.orderInfo.token = response.data.data;
                     });
+
+                    axios.get("/member/getFamily.do?token="+localStorage.getItem("token")).then((res)=>{
+                        this.family = res.data.data
+                    })
                 }
             });
         </script>

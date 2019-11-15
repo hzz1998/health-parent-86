@@ -18,4 +18,5 @@ public interface MemberDao {
     public Integer findMemberCountByDate(String date);
     public Integer findMemberCountAfterDate(String date);
     public Integer findMemberTotalCount();
+    List<Member> findMemberByParentId(@Param("id") Integer id);
 }
