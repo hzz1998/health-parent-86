@@ -11,6 +11,8 @@ import com.itheima.entity.QueryPageBean;
 import com.itheima.pojo.CheckGroup;
 import com.itheima.pojo.CheckItem;
 import com.itheima.pojo.Setmeal;
+import com.itheima.utils.JedisUtil;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +29,10 @@ public class SetmealServiceImpl implements SetmealService {
     @Autowired
     SetmealDao setmealDao;
 
+    @Autowired
+    JedisUtil jedisUtil;
     @Override
+
     public void add(Setmeal setmeal) {
         //插入套餐基本信息并返回主键（返回主键要和用户勾选的检查组的id建立关系）
         setmealDao.add(setmeal);
@@ -40,6 +45,8 @@ public class SetmealServiceImpl implements SetmealService {
                 setmealDao.setSetmealAndCheckGroupRelation(checkgroupId,setmealId);
             }
         }
+        jedisUtil.del("setmealsList");
+        jedisUtil.del("SetmealsDetails");
     }
 
     @Override

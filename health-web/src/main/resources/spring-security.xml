@@ -65,8 +65,8 @@
 
 <!--    配置认证管理器 认证提供者 实现userdetailservice（动态获取用户名 密码 权限） 密码加密-->
 
-    <security:authentication-manager>
-        <security:authentication-provider user-service-ref="springSecurityUserService">
+    <security:authentication-manager><!--user-service-ref="springSecurityUserService"-->
+        <security:authentication-provider user-service-ref="springSecurityUserService" >
             <security:password-encoder ref="passwordEncoder"></security:password-encoder>
         </security:authentication-provider>
     </security:authentication-manager>

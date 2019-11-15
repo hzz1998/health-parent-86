@@ -6,13 +6,10 @@ import com.itheima.entity.Result;
 import com.itheima.utils.JedisUtil;
 import com.itheima.utils.SmsUtil;
 import com.itheima.utils.ValidateCodeUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
