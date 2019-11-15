@@ -33,7 +33,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public void edit(Permission permission) {
 
-        permissionMapper.updateByPrimaryKey(permission);
+        permissionMapper.edit(permission);
     }
 
     @Override
@@ -51,5 +51,11 @@ public class PermissionServiceImpl implements PermissionService {
         List<Permission> permissionList = permissionMapper.findPage(queryPageBean.getQueryString());
 
         return new PageResult(page.getTotal(),permissionList);
+    }
+
+
+    @Override
+    public Permission findById(Integer id) {
+        return permissionMapper.findById(id);
     }
 }

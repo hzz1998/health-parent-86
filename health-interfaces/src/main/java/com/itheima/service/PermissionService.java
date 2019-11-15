@@ -19,4 +19,6 @@ public interface PermissionService {
     List<Permission> findAll();
 
     PageResult findPage(QueryPageBean queryPageBean);
+
+    Permission findById(Integer id);
 }

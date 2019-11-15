@@ -95,12 +95,7 @@
                     <el-form-item label="项目名称" prop="name">
                         <el-input v-model="formData.name"></el-input>
                     </el-form-item>
-                    <el-form-item label="性别" prop="sex">
-                        <el-select v-model="formData.sex">
-                            <el-option label="男" value="0"></el-option>
-                            <el-option label="女" value="2"></el-option>
-                        </el-select>
-                    </el-form-item>
+
                 </el-form>
                 <el-button ref="mybtn" type="primary" class="butT" @click="handleEdit()">编辑</el-button>
             </el-dialog>
@@ -203,6 +198,7 @@
                 },
                 // 弹出添加窗口
                 handleCreate() {
+                    this.formData = {};
                     this.dialogFormVisible = true;
                 },
                 // 弹出编辑窗口

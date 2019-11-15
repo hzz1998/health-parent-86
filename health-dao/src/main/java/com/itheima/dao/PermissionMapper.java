@@ -21,8 +21,12 @@ public interface PermissionMapper {
 
     int updateByPrimaryKeySelective(Permission record);
 
-    int updateByPrimaryKey(Permission record);
+
     Set<Permission> selectByRoleId(@Param("roleId") Integer roleId);
 
     List<Permission> findPage(String queryString);
+
+    void edit(Permission permission);
+
+    Permission findById(Integer id);
 }
