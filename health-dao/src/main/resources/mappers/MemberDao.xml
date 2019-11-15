@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.itheima.dao.MemberDao" >
+<mapper namespace="com.itheima.dao.MemberDao">
     <select id="findAll" resultType="com.itheima.pojo.Member">
         select * from t_member
     </select>
@@ -92,4 +92,33 @@
     <select id="findMemberTotalCount" resultType="int">
         select count(id) from t_member
     </select>
+    <select id="findNancount" resultType="integer">
+        select count(*) from t_member where sex='1'
+    </select>
+    <select id="findNvcount" resultType="integer">
+        select count(*) from t_member where sex='2'
+    </select>
+    <select id="find0018" resultType="java.lang.Integer">
+        select count(*) from t_member where birthday > '2001-0-0'
+    </select>
+    <select id="find1830" resultType="java.lang.Integer">
+select count(*) from t_member where birthday
+BETWEEN '1989-0-0' and '2001-0-0'
+    </select>
+    <select id="find3045" resultType="java.lang.Integer">
+        select count(*) from t_member where birthday
+BETWEEN '1974-0-0' and '1989-0-0'
+    </select>
+    <select id="find45" resultType="java.lang.Integer">
+        select count(*) from t_member where birthday > '1989-0-0'
+    </select>
+    <select id="getMember" resultType="com.itheima.pojo.Member">
+        select *from t_member
+    </select>
+    <select id="getMemberByDate" resultType="java.lang.Integer">
+        select Count(*) t_member WHERE regTime between #{start1} and #{end1}
+    </select>
+    <select id="queryCountByMonth" resultType="java.lang.Integer">
+select count(*) from t_member where regTime &lt; #{month}
+</select>
 </mapper>

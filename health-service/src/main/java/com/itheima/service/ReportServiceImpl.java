@@ -6,17 +6,16 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.itheima.dao.MemberDao;
 import com.itheima.dao.OrderDao;
 import com.itheima.dao.ReportDao;
-import com.itheima.pojo.HotSetmealVo;
+
+import com.itheima.pojo.Member;
 import com.itheima.pojo.ReportDataVo;
-import org.aspectj.lang.annotation.Aspect;
-import org.checkerframework.checker.units.qual.A;
+import com.itheima.tool.GetAgeUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import sun.rmi.server.InactiveGroupException;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service(interfaceClass = ReportService.class)
 @Transactional
@@ -28,8 +27,11 @@ public class ReportServiceImpl implements ReportService {
     MemberDao memberDao;
     @Autowired
     OrderDao orderDao;
+    @Autowired
+    GetAgeUtil getAgeUtil;
 
     @Override
+
     public List<Integer> getMemberReport(List<String> months) {
         List<Integer> memberCount = new ArrayList<>();
         for (String month : months) {
@@ -72,6 +74,80 @@ public class ReportServiceImpl implements ReportService {
                 .thisMonthVisitsNumber(orderDao.findVisitsOrderCountBetween(beginOfMonth, endOfMonth))
                 .hotSetmeal(orderDao.findHotSetmeal())
                 .build();
+    }
+
+    @Override
+    public List<Map> getSex() {
+        Integer nan = memberDao.findNancount();
+        Integer nv = memberDao.findNvcount();
+
+        Map map1 = new HashMap();
+        Map map2 = new HashMap();
+        map1.put("value", nan);
+        map1.put("name", "男");
+        map2.put("value", nv);
+        map2.put("name", "女");
+        List<Map> maps = new ArrayList<>();
+        maps.add(map1);
+        maps.add(map2);
+        return maps;
+    }
+
+    @Override
+    public List<Map> getAge() throws Exception {
+
+        Integer yiba = 0;
+        Integer sanlin = 0;
+        Integer siwu = 0;
+        Integer siwushang = 0;
+
+        List<Member> members = memberDao.getMember();
+        for (Member member : members) {
+            Date regTime = member.getBirthday();
+            int age = getAgeUtil.getAge(regTime);
+            if (age >= 0 && age <= 18) {
+                yiba = yiba + 1;
+            } else if (age >= 18 && age <= 30) {
+                sanlin = sanlin + 1;
+            } else if (age >= 30 && age <= 45) {
+                siwu = siwu + 1;
+            } else if (age >= 45) {
+                siwushang = siwushang + 1;
+            }
+
+        }
+
+        Map map1 = new HashMap();
+        Map map2 = new HashMap();
+        Map map3 = new HashMap();
+        Map map4 = new HashMap();
+
+
+        map1.put("value", yiba);
+        map1.put("name", "0-18");
+        map2.put("value", sanlin);
+        map2.put("name", "18-30");
+        map3.put("value", siwu);
+        map3.put("name", "30-45");
+        map4.put("value", siwushang);
+        map4.put("name", "45~");
+
+        List<Map> maps = new ArrayList<>();
+        maps.add(map1);
+        maps.add(map2);
+        maps.add(map3);
+        maps.add(map4);
+        return maps;
+    }
+
+    @Override
+    public List<Integer> queryCountByMonth(List<String> monthList) {
+        List<Integer> list=new ArrayList<>();
+        for(String month:monthList){
+            Integer count = memberDao.queryCountByMonth(month);
+                    list.add(count);
+        }
+        return list;
     }
 
 
