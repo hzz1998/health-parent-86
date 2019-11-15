@@ -14,8 +14,8 @@ public class SmsUtil {
 
     public static void sendSmsCode(String PhoneNumbers,String code){
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou",
-                "****",//替换成你的
-                "****");//替换成你的
+                "LTAI4FmvincMrabnuMKPhcx4",//替换成你的
+                "XnFpQvYY0waj2XBhE59NnMsKheBCQd");//替换成你的
         IAcsClient client = new DefaultAcsClient(profile);
 
         CommonRequest request = new CommonRequest();
@@ -24,8 +24,8 @@ public class SmsUtil {
         request.setVersion("2017-05-25");
         request.setAction("SendSms");
         request.putQueryParameter("RegionId", "cn-hangzhou");
-        request.putQueryParameter("SignName", "传智健康");
-        request.putQueryParameter("TemplateCode", "SMS_166095420");
+        request.putQueryParameter("SignName", "传智健康体验预约");
+        request.putQueryParameter("TemplateCode", "SMS_177255936");
 
         request.putQueryParameter("PhoneNumbers", PhoneNumbers);
         JSONObject obj = new JSONObject();

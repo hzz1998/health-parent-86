@@ -14,9 +14,9 @@
         <module>health-dao</module>
         <module>health-service</module>
         <module>health-web</module>
-<!--        <module>health-wechatweb</module>-->
-<!--        <module>springsecuritydemo</module>-->
-        <!--        <module>health-jobs</module>-->
+        <module>health-wechatweb</module>
+        <module>springsecuritydemo</module>
+                <module>health-jobs</module>
     </modules>
     <packaging>pom</packaging>
 

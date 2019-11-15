@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+</head>
+<body>
+
+
+<div id="app">
+    <input type="button" value="添加角色" v-on:click="handleCreate">
+
+    <el-dialog
+            title="添加角色"
+            :visible.sync="dialogVisible">
+
+
+
+        <el-tabs v-model="activeName">
+            <el-tab-pane label="角色基本信息" name="first">
+                <input type="text" v-model="role.name">
+                <input type="text" v-model="role.keyword">
+            </el-tab-pane>
+            <el-tab-pane label="权限列表" name="second">
+
+                <table>
+                    <tr v-for="item in permissions">
+                        <td>
+                            <input type="checkbox" :value="item.id" v-model="permissionIds">
+                        </td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.keyword}}</td>
+                    </tr>
+                </table>
+
+
+            </el-tab-pane>
+            <el-tab-pane label="菜单列表" name="third">
+
+                <el-tree ref="treeObj" :data="treeData"  node-key="id"  show-checkbox>
+                  <span class="custom-tree-node" slot-scope="{ node, data }">
+                    <span>{{ node.label }}</span>
+                  </span>
+                </el-tree>
+
+            </el-tab-pane>
+        </el-tabs>
+
+
+        <input type="button" value="添加" v-on:click="add">
+
+    </el-dialog>
+
+
+</div>
+
+
+
+<script src="../js/vue.js"></script>
+<script src="../plugins/elementui/index.js"></script>
+<script src="../js/axios-0.18.0.js"></script>
+<script>
+
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            dialogVisible:false,
+            activeName:"first",
+            role:{},
+            permissions:[],
+            menus:[],
+            permissionIds:[],
+            treeData:[]
+        },
+        methods:{
+            handleCreate(){
+                this.dialogVisible = true;
+            },
+            add(){
+                console.log(this.permissionIds);
+                console.log(this.$refs.treeObj.getCheckedKeys());
+            }
+        },
+        created(){
+            //加载所有的权限
+
+            //加载所有菜单
+            axios.get("/user/getMenusAndPermissions.do").then((resp)=>{
+
+                this.treeData = resp.data.data.menus;
+                this.permissions = resp.data.data.permissions;
+            })
+        }
+    })
+
+</script>
+</body>
+</html>
