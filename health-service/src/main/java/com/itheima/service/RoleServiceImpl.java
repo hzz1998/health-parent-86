@@ -10,7 +10,7 @@ import com.itheima.entity.QueryPageBean;
 import com.itheima.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.itheima.pojo.Role;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,5 +68,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void delete(Integer id) {
         roleMapper.delete(id);
+    }
+
+    @Override
+    public List<Role> findAll() {
+        return roleMapper.findAll();
     }
 }

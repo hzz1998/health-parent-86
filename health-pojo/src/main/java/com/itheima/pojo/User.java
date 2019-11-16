@@ -11,7 +11,7 @@ import java.util.Set;
 public class User implements Serializable{
     private Integer id; // 主键
     private Date birthday; // 生日
-    private String gender; // 性别
+    private String gender="0"; // 性别
     private String username; // 用户名，唯一
     private String password; // 密码
     private String remark; // 备注

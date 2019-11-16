@@ -5,6 +5,9 @@ import com.itheima.entity.QueryPageBean;
 import com.itheima.pojo.Role;
 
 import java.util.Map;
+import com.itheima.pojo.Role;
+
+import java.util.List;
 
 public interface RoleService {
 
@@ -17,4 +20,8 @@ public interface RoleService {
     void add(Role role);
 
     void delete(Integer id);
+
+    List<Role> findAll();
 }
+
+

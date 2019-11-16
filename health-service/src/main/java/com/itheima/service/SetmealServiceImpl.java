@@ -1,7 +1,6 @@
 package com.itheima.service;
 
 import cn.hutool.core.collection.CollectionUtil;
-//import cn.hutool.db.PageResult;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -12,7 +11,6 @@ import com.itheima.pojo.CheckGroup;
 import com.itheima.pojo.CheckItem;
 import com.itheima.pojo.Setmeal;
 import com.itheima.utils.JedisUtil;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 

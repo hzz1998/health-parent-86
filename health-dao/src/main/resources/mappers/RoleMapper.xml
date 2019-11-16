@@ -40,4 +40,7 @@
   <select id="findpermisssionsIdsByRoleId" resultType="java.lang.Integer">
     select permission_id from t_role_permission where role_id = #{id}
   </select>
+  <select id="findAll" resultType="com.itheima.pojo.Role">
+    select * from t_role
+  </select>
 </mapper>

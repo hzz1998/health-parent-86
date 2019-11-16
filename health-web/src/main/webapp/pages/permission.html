@@ -113,15 +113,13 @@
             dialogFormVisible: false,//增加表单是否可见
             dialogFormVisible4Edit:false,//编辑表单是否可见
             myrules: {//校验规则
-                code:[
-                    {required: true, message: '请输入编码', trigger: 'blur' }
+                keyword:[
+                    {required: true, message: '请输入密匙', trigger: 'blur' }
                 ],
                 name:[
                     {required: true, message: '请输入名称', trigger: 'blur' },
                 ],
-                sex:[
-                    {required: true, message: '请选择性别', trigger: ['change','blur'] },
-                ]
+
             }
         },
         //钩子函数，VUE对象初始化完成后自动执行

@@ -22,4 +22,6 @@ public interface RoleMapper {
     void add(Role role);
 
     void delete(Integer id);
+
+    List<Role> findAll();
 }

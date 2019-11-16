@@ -21,11 +21,11 @@
       select * from t_permission where id in (select permission_id from t_role_permission where role_id = #{roleId})
     </select>
     <select id="findAll" resultType="com.itheima.pojo.Permission">
-        select * from t_permisssion
+        select * from t_permission
     </select>
 
     <select id="findPage" resultType="com.itheima.pojo.Permission">
-        select * from t_permisssion
+        select * from t_permission
 
         <if test="queryString != null and queryString.length > 0">
             where code = #{queryString} or name = #{queryString}
@@ -99,6 +99,9 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
+    <update id="edit">
+      update  t_permission set name = #{name},keyword= #{keyword} where id = #{id}
+ </update>
 
 
 </mapper>
