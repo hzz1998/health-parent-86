@@ -45,9 +45,9 @@ public class PermissionController {
         return Result.success("");
     }
     @RequestMapping("/edit")
-    public Result edit(Permission permission){
-        permissionService.edit(permission);
-        return Result.success("");
+    public Result edit(@RequestBody Permission permission){
+       permissionService.edit(permission);
+       return new Result(true,"");
     }
     @RequestMapping("/findAll")
     public Result findAll(){
@@ -57,5 +57,10 @@ public class PermissionController {
     @RequestMapping("/findPage")
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
         return  permissionService.findPage(queryPageBean);
+    }
+    @RequestMapping("/findById")
+    public Result findById(Integer id){
+        Permission Permission =  permissionService.findById(id);
+        return new Result(true,"",Permission);
     }
 }
