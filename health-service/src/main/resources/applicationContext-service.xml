@@ -20,7 +20,7 @@
 <!--    端口&协议-->
     <dubbo:protocol name="dubbo" port="-1"></dubbo:protocol>
 <!--    dubbo包扫描(扫描的包下面要有注解)-->
-    <dubbo:annotation package="com.itheima.service,com.itheima.tool"></dubbo:annotation>
+    <dubbo:annotation package="com.itheima.service"></dubbo:annotation>
 
     <context:component-scan base-package="com.itheima.service"></context:component-scan>
 
