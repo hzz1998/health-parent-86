@@ -140,37 +140,37 @@
 
 
 
-<script type="text/javascript">
-// 基于准备好的dom，初始化echarts实例
-var myChart3 = echarts.init(document.getElementById('chart3'));
+<!--<script type="text/javascript">-->
+<!--// 基于准备好的dom，初始化echarts实例-->
+<!--var myChart3 = echarts.init(document.getElementById('chart3'));-->
 
-// 使用刚指定的配置项和数据显示图表。
-//myChart.setOption(option);
+<!--// 使用刚指定的配置项和数据显示图表。-->
+<!--//myChart.setOption(option);-->
 
-axios.post("/report/getAge.do").then((res) => {
-    console.log(res);
-    var option = {
-        title: {
-            text: '会员增长数',
-            subtext: '',
-            x: 'center'
-        },
-        xAxis: {
-            type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [{
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: 'line'
-        }]
-    };
+<!--axios.post("/report/getAge.do").then((res) => {-->
+<!--    console.log(res);-->
+<!--    var option = {-->
+<!--        title: {-->
+<!--            text: '会员增长数',-->
+<!--            subtext: '',-->
+<!--            x: 'center'-->
+<!--        },-->
+<!--        xAxis: {-->
+<!--            type: 'category',-->
+<!--            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']-->
+<!--        },-->
+<!--        yAxis: {-->
+<!--            type: 'value'-->
+<!--        },-->
+<!--        series: [{-->
+<!--            data: [820, 932, 901, 934, 1290, 1330, 1320],-->
+<!--            type: 'line'-->
+<!--        }]-->
+<!--    };-->
 
-    myChart3.setOption(option);
-});
-</script>
+<!--    myChart3.setOption(option);-->
+<!--});-->
+<!--</script>-->
 
 
 
