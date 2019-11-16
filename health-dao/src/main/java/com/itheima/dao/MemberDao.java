@@ -37,4 +37,5 @@ public interface MemberDao {
     List<Integer> getMemberByDate(@Param("start1") Date start1,@Param("end1") Date end1);
 
     Integer queryCountByMonth(String month);
+    List<Member> findMemberByParentId(@Param("id") Integer id);
 }

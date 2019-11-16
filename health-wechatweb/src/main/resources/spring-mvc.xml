@@ -18,7 +18,7 @@
 <!--    dubbo注册中心地址 (能不能用redis  redis&zookeeper？)-->
     <dubbo:registry address="zookeeper://127.0.0.1:2181"></dubbo:registry>
 <!--    dubbo包扫描 (dubbo工作原理？)-->
-    <dubbo:annotation package="com.itheima.wechat,com.itheima.utils"></dubbo:annotation>
+    <dubbo:annotation package="com.itheima.wechat"></dubbo:annotation>
 <!--    消费启动检查设置为false-->
     <dubbo:consumer check="false" timeout="120000"></dubbo:consumer>
 <!--    mvc注解驱动-->

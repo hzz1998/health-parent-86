@@ -291,6 +291,7 @@
             // 弹出添加窗口
             handleCreate() {
                 //先要查询出所有的检查项，查询成功之后弹出新增框
+                this.formData = {};
                 axios.get("/permission/findAll.do").then((res)=>{
                     if(res.data.flag){
                         this.tableData = res.data.data

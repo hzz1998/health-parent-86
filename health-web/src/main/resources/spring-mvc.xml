@@ -32,7 +32,7 @@
     </mvc:annotation-driven>
 
     <!--    dubbo包扫描-->
-    <dubbo:annotation package="com.itheima,com.itheima.utils"></dubbo:annotation>
+    <dubbo:annotation package="com.itheima"></dubbo:annotation>
     <!--    注册中心-->
     <dubbo:registry address="zookeeper://127.0.0.1:2181"></dubbo:registry>
     <!--    应用名称-->
