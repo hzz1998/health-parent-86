@@ -26,6 +26,8 @@ public class ReportServiceImpl implements ReportService {
     MemberDao memberDao;
     @Autowired
     OrderDao orderDao;
+    @Autowired
+    GetAgeUtil getAgeUtil;
 
 
     @Override
@@ -102,7 +104,8 @@ public class ReportServiceImpl implements ReportService {
         List<Member> members = memberDao.getMember();
         for (Member member : members) {
             Date regTime = member.getBirthday();
-            int age = getAge(regTime);
+            if(regTime==null){break;}
+            int age = getAgeUtil.getAge(regTime);
             if (age >= 0 && age <= 18) {
                 yiba = yiba + 1;
             } else if (age >= 18 && age <= 30) {
@@ -140,10 +143,10 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<Integer> queryCountByMonth(List<String> monthList) {
-        List<Integer> list=new ArrayList<>();
-        for(String month:monthList){
+        List<Integer> list = new ArrayList<>();
+        for (String month : monthList) {
             Integer count = memberDao.queryCountByMonth(month);
-                    list.add(count);
+            list.add(count);
         }
         return list;
     }
@@ -177,31 +180,4 @@ public class ReportServiceImpl implements ReportService {
     }
 
 
-    public  int getAge(Date birthDay) throws Exception {
-        Calendar cal = Calendar.getInstance();
-
-        if (cal.before(birthDay)) {
-            throw new IllegalArgumentException(
-                    "The birthDay is before Now.It's unbelievable!");
-        }
-        int yearNow = cal.get(Calendar.YEAR);
-        int monthNow = cal.get(Calendar.MONTH);
-        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
-        cal.setTime(birthDay);
-
-        int yearBirth = cal.get(Calendar.YEAR);
-        int monthBirth = cal.get(Calendar.MONTH);
-        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
-
-        int age = yearNow - yearBirth;
-
-        if (monthNow <= monthBirth) {
-            if (monthNow == monthBirth) {
-                if (dayOfMonthNow < dayOfMonthBirth) age--;
-            } else {
-                age--;
-            }
-        }
-        return age;
-    }
 }
