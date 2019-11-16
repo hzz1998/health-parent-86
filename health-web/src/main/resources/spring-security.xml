@@ -38,7 +38,7 @@
 <!--        配置那些页面需要拦截并且需要什么样的权限才能访问
            isAuthenticated() 只要登录就可以访问
 -->
-        <security:intercept-url pattern="/**" access="isAuthenticated()"></security:intercept-url>
+        <security:intercept-url pattern="/pages/**" access="isAuthenticated()"></security:intercept-url>
 
 <!--        配置自定义登录页面
             always-use-default-target="true" 登录成功之后总是跳转到我们配置的页面

@@ -1,10 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itheima.dao.UserMapper">
+  <insert id="add" parameterType="com.itheima.pojo.User" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user(birthday,gender,username,password,remark,telephone,station)
+        values
+        (#{birthday},#{gender},#{username},#{password},#{remark},#{telephone},#{station})
+    </insert>
+    <update id="edit">
+        update t_user
+        <set>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
-  <select id="selectByUserName" resultType="com.itheima.pojo.User">
+    <select id="selectByUserName" resultType="com.itheima.pojo.User">
     select * from t_user where username = #{username}
   </select>
+    <select id="findPage" resultType="com.itheima.pojo.User">
+      select * from t_user
+    </select>
+    <select id="findCountById" resultType="java.lang.Integer">
+        select count(*) from t_user_role where user_id = #{id}
+    </select>
+    <select id="findById" resultType="com.itheima.pojo.User">
+        select * from t_user where id = #{id}
+    </select>
+    <select id="findRoleIdsByUserId" resultType="java.lang.Integer">
+       select role_id from t_user_role where user_id = #{id}
+    </select>
+    <delete id="delete">
+        delete from t_user where id = #{id}
+    </delete>
+    <delete id="deleteAssociation">
+         delete from t_user_role where role_id = #{id}
+    </delete>
 
 
 </mapper>
